@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">RetrofitTest</string>
+    <string name="post_id_string">%d번째 게시물</string>
+    <string name="post_userId_string">작성자id: %d</string>
+    <string name="post_title_string">제목: %s</string>
+    <string name="post_body_string">본문: %s</string>
+</resources>

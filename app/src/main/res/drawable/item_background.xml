@@ -11,6 +11,7 @@
                 android:color="#000000" />
 
             <solid android:color="#FFF" />
+            <padding android:bottom="3dp"/>
         </shape>
     </item>
 </layer-list>

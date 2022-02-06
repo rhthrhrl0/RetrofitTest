@@ -31,5 +31,9 @@ class MyAdapter():RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
         return postList.size
     }
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
 
 }

@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/rhthr/AndroidStudioProjects/RetrofitTest/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/RetrofitTest/app/src/main/res/drawable/item_background.xml" value="0.10648148148148148" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/RetrofitTest/app/src/main/res/layout/activity_main.xml" value="0.10729166666666666" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/RetrofitTest/app/src/main/res/layout/main_item.xml" value="0.1" />

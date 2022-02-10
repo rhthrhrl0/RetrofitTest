@@ -1,35 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <data>
         <variable
-            name="postVm"
+            name="post"
             type="com.example.retrofittest.ResponseResult" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/item_background">
+        android:background="@drawable/item_background"
+        android:orientation="vertical">
+
         <TextView
-            android:text="@{@string/post_id_string(postVm.id)}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:text="@{@string/post_id_string(post.id)}" />
+
         <TextView
-            android:text="@{@string/post_userId_string(postVm.userId)}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:text="@{@string/post_userId_string(post.userId)}" />
+
         <TextView
-            android:text="@{@string/post_title_string(postVm.title)}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:text="@{@string/post_title_string(post.title)}" />
+
         <TextView
-            android:text="@{@string/post_body_string(postVm.body)}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:text="@{@string/post_body_string(post.body)}" />
+
+        <Button
+            android:id="@+id/deleteBt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="삭제" />
     </LinearLayout>
 </layout>

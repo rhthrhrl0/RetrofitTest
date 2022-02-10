@@ -2,38 +2,63 @@ package com.example.retrofittest
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofittest.databinding.MainItemBinding
+import com.example.retrofittest.viewholder.MyViewHolder
 
-class MyAdapter():RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
-    var postList= mutableListOf<ResponseResult>()
+class MyAdapter private constructor(diffCallback: DiffUtil.ItemCallback<ResponseResult>) :
+    ListAdapter<ResponseResult, MyViewHolder>(diffCallback) {
 
-    //뷰홀더 역할을 맡을 뷰홀더 클래스
-    class MyViewHolder(val binding:MainItemBinding) :RecyclerView.ViewHolder(binding.root) {
-        fun bind(currentPost:ResponseResult){
-            binding.postVm=currentPost
-            //건네받은 게시물객체를 화면에 띄우기 위해서 뷰홀더와 연결시키는 것임.
-            //뷰홀더를 구성하는 binding의 postVm에 띄울 게시물 객체를 연결시키는 것.
+    class Builder(private val recyclerView: RecyclerView) {
+
+        //DiffUtil은 두 데이터셋을 받아서 차이를 비교해주는 클래스임.
+        private val differCallBack = object : DiffUtil.ItemCallback<ResponseResult>() {
+            override fun areItemsTheSame( //비교대상인 두 객체가 동일한지 비교
+                oldItem: ResponseResult,
+                newItem: ResponseResult
+            ): Boolean {
+                //각 게시물별로 고유번호인 id를 비교
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame( //두 아이템이 동일한 데이터를 가지는지 비교
+                oldItem: ResponseResult,
+                newItem: ResponseResult
+            ): Boolean {
+                return oldItem == newItem   //ResponseResult는 데이터클래스이므로 값을 비교함.
+            }
+        }
+
+        fun build(): MyAdapter {
+            val adapter = MyAdapter(differCallBack)
+            recyclerView.adapter = adapter
+            return adapter
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val binding=MainItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding = MainItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bind(postList[position])
+        holder.bind(getItem(position))
+        //리스트어댑터는 따로 items리스트를 선언하지 않음. 내부적으로 존재함.
+        //글서 오버라이드 메서드중 하나인 getItemCount는 더이상 만들지 않음.
+
+        //삭제기능
+        holder.binding.deleteBt.setOnClickListener {
+            removeItem(holder.binding.post)
+        }
     }
 
-    override fun getItemCount(): Int {
-        return postList.size
+    fun removeItem(item: ResponseResult?) {
+        val newList = currentList.toMutableList()
+        newList.remove(item)
+        submitList(newList)
     }
-
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-
 
 }

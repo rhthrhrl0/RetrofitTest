@@ -2,17 +2,18 @@ package com.example.retrofittest
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
+
 
 object SingletonObject {
-    //싱글톤 객체를 활용해서 레트로핏 구현
-    private val retrofit=Retrofit.Builder()
-            .baseUrl("https://jsonplaceholder.typicode.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+    //레트로핏객체 구현
+    private val retrofit = Retrofit.Builder()
+        .baseUrl("https://jsonplaceholder.typicode.com/") //api서버 url을 넣기
+        .addConverterFactory(GsonConverterFactory.create()) //필요한 컨버터를 넣음
+        .build()
 
-    private val _api= retrofit.create(JsonPlaceHolderInterface::class.java)
+    //만들어진 레트로핏 객체에게 api인터페이스를 연결시켜줌
+    private val _api = retrofit.create(JsonPlaceHolderInterface::class.java)
 
     val api
-        get()= _api
+        get() = _api
 }

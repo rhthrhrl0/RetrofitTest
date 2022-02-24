@@ -1,7 +1,7 @@
 package com.example.retrofittest
 
 
-import android.util.Log
+
 import dagger.hilt.android.lifecycle.HiltViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,22 +18,18 @@ class MainViewModel @Inject constructor() :
     val postList: LiveData<ArrayList<ResponseResult>>
         get() = _postList
 
-    var myAdapter: MyAdapter = MyAdapter.Builder().build(::removeItem)
+    lateinit var myAdapter: MyAdapter
 
     init {
-        Log.d("kmj", "뷰모델:설정중스코프 밖")
         viewModelScope.launch {
-            Log.d("kmj", "뷰모델:설정중스코프 안")
             val dataResponse = SingletonObject.api.getPost()
-            Log.d("kmj", "뷰모델:설정중스코프 안")
             _postList.postValue(dataResponse.body())
-            Log.d("kmj", "뷰모델:설정중스코프 안")
-            //메인스레드가 아닌 백그라운드 스레드에서 진행
+            //메인스레드가 아닌 백그라운드 스레드에서 진행됨.
         }
     }
 
     fun removeItem(item: ResponseResult) {
-        val newList=_postList.value?.toMutableList()
+        val newList = _postList.value?.toMutableList()
         newList?.remove(item)
         _postList.postValue(newList as ArrayList<ResponseResult>?)
     }

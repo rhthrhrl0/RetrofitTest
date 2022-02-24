@@ -21,13 +21,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        viewModel.myAdapter = MyAdapter.Builder().build(viewModel::removeItem)
+
         binding.vm = viewModel
 
         //이렇게 하면 해당 binding에 연결시킨 뷰모델은 지정한 생명주기동안 옵저버 역할 함
         binding.lifecycleOwner = this
-
-        //어댑터 연결 설정
-        binding.recyclerView.adapter=viewModel.myAdapter
 
     }
 }

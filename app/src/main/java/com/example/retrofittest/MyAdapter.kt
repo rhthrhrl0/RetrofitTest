@@ -1,6 +1,6 @@
 package com.example.retrofittest
 
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -11,11 +11,11 @@ import com.example.retrofittest.viewholder.MyViewHolder
 
 class MyAdapter private constructor(
     diffCallback: DiffUtil.ItemCallback<ResponseResult>,
-    var deleteClick:(ResponseResult)->Unit
+    var deleteClick: (ResponseResult) -> Unit
 ) :
     ListAdapter<ResponseResult, MyViewHolder>(diffCallback) {
 
-    class Builder() {
+    class Builder {
 
         //DiffUtil은 두 데이터셋을 받아서 차이를 비교해주는 클래스임.
         private val differCallBack = object : DiffUtil.ItemCallback<ResponseResult>() {
@@ -35,8 +35,8 @@ class MyAdapter private constructor(
             }
         }
 
-        fun build(deleteClick:(ResponseResult)->Unit): MyAdapter {
-            return MyAdapter(differCallBack,deleteClick)
+        fun build(deleteClick: (ResponseResult) -> Unit): MyAdapter {
+            return MyAdapter(differCallBack, deleteClick)
         }
     }
 
@@ -46,18 +46,14 @@ class MyAdapter private constructor(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val item:ResponseResult=getItem(position)
+        val item: ResponseResult = getItem(position)
         holder.bind(item)
         //리스트어댑터는 따로 items리스트를 선언하지 않음. 내부적으로 존재함.
         //글서 오버라이드 메서드중 하나인 getItemCount는 더이상 만들지 않음.
 
         holder.binding.deleteBt.setOnClickListener {
-            Log.d("kmj","ㅋㅋ")
             deleteClick(item)
-            Log.d("kmj","ㅋㅋ")
         }
     }
-
-
 
 }
